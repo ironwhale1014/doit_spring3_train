@@ -1,22 +1,19 @@
 package com.mysite.sbb;
 
-import com.mysite.sbb.domain.Answer;
-import com.mysite.sbb.domain.Question;
-import com.mysite.sbb.repository.AnswerRepository;
-import com.mysite.sbb.repository.QuestionRepository;
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.answer.AnswerRepository;
+import com.mysite.sbb.question.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
-import java.beans.Transient;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -79,15 +76,15 @@ class SbbApplicationTests {
     }
 
     @Test
-    @Transactional
     void updateTest() {
-        Optional<Question> byId = questionRepository.findById(1);
+        Optional<Question> byId = questionRepository.findById(2);
         assertTrue(byId.isPresent());
         Question question = byId.get();
-        question.setSubject("Edit subject11");
+        System.out.println("question.getSubject() = " + question.getSubject());
+        question.setSubject("updated subject");
         questionRepository.save(question);
 
-        assertThat(questionRepository.findById(1).get().getSubject()).isEqualTo("Edit subject11");
+        assertThat(questionRepository.findById(2).get().getSubject()).isEqualTo("updated subject");
     }
 
     @Test
