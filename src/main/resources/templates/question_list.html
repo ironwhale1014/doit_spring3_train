@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,17 +9,18 @@
 <h2>Hello Template</h2>
 <table>
     <thead>
-        <tr>
-            <th>제목</th>
-            <th>작성일시</th>
-        </tr>
+    <tr>
+        <th>제목</th>
+        <th>작성일시</th>
+    </tr>
     </thead>
     <tbody>
-        <tr th:each="question :${questionList}">
-            <td th:text="${question.subject}"></td>
-            <td th:text="${question.createDate}"></td>
-
-        </tr>
+    <tr th:each="question :${questionList}">
+        <td>
+            <a th:href="@{|/question/detail/${question.id}|}"
+               th:text="${question.subject}"></a>
+        </td>
+    </tr>
 
     </tbody>
 </table>
