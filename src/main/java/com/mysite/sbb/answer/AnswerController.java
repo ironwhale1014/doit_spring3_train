@@ -28,6 +28,7 @@ public class AnswerController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("question", question);
+            model.addAttribute("answerForm", answerForm);
             return "question_detail";
         }
 
