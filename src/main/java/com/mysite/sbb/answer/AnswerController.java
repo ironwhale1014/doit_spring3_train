@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/answer")
@@ -22,7 +24,7 @@ public class AnswerController {
 
     @PostMapping("/create/{id}")
     public String createAnswer(@PathVariable Integer id, Model model,
-                               @Valid AnswerForm answerForm, BindingResult bindingResult) {
+                               @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
 
         Question question = questionService.getQuestion(id);
 
