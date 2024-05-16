@@ -3,6 +3,7 @@ package com.mysite.sbb.question;
 
 import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.util.DataNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +46,15 @@ public class QuestionService {
         question.setAuthor(user);
         questionRepository.save(question);
 
+    }
+
+    @Transactional
+    public void modify(Question question, String subject, String content){
+        // TO-DO : questionRepository.save(question); 필요없게 수정
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifiedDate(LocalDateTime.now());
+       // questionRepository.save(question);
     }
 
 }

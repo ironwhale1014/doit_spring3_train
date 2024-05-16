@@ -21,6 +21,12 @@
                 </div>
             </div>
         </div>
+        <div class="my-3">
+            <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
+             sec:authorize="isAuthenticated()"
+               th:if="${question.author != null and #authentication.getPrincipal().getUsername()== question.author.username}" th:text="수정"
+            ></a>
+        </div>
     </div>
     <h5 class="border-bottom my-3 py-2" th:text="|${#lists.size(question.answers)}개의 답변이 있습니다.|"></h5>
     <div class="card my-3" th:each="answer : ${question.answers}">
