@@ -21,7 +21,7 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-    public Page<Question> getList(int page){
+    public Page<Question> getList(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
 
@@ -29,16 +29,16 @@ public class QuestionService {
         return questionRepository.findAll(pageable);
     }
 
-    public Question getQuestion(int id){
+    public Question getQuestion(int id) {
         Optional<Question> question = questionRepository.findById(id);
-        if(question.isPresent()){
+        if (question.isPresent()) {
             return question.get();
-        }else{
+        } else {
             throw new DataNotFoundException("question not found");
         }
     }
 
-    public void create(String subject , String content, SiteUser user){
+    public void create(String subject, String content, SiteUser user) {
         Question question = new Question();
         question.setSubject(subject);
         question.setContent(content);
@@ -49,12 +49,16 @@ public class QuestionService {
     }
 
     @Transactional
-    public void modify(Question question, String subject, String content){
+    public void modify(Question question, String subject, String content) {
         // TO-DO : questionRepository.save(question); 필요없게 수정
         question.setSubject(subject);
         question.setContent(content);
         question.setModifiedDate(LocalDateTime.now());
-       // questionRepository.save(question);
+        // questionRepository.save(question);
+    }
+
+    public void delete(Question question) {
+        questionRepository.delete(question);
     }
 
 }
