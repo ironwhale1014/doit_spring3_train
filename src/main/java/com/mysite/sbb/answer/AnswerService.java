@@ -39,4 +39,8 @@ public class AnswerService {
         answer.setContent(content);
         answer.setModifiedDate(LocalDateTime.now());
     }
+
+    public void delete(Answer answer) {
+        answerRepository.delete(answer);
+    }
 }
