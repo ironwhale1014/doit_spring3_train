@@ -39,8 +39,8 @@ public class AnswerController {
             return "question_detail";
         }
 
-        answerService.create(question, answerForm.getContent(), siteUser);
-        return String.format("redirect:/question/detail/%s", id);
+        Answer answer = answerService.create(question, answerForm.getContent(), siteUser);
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -69,7 +69,7 @@ public class AnswerController {
         }
 
         answerService.modify(answer, answerForm.getContent());
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(),answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -83,7 +83,7 @@ public class AnswerController {
         }
         answerService.delete(answer);
         System.out.println("String.format(\"redirect:/question/detail/%s\", answer.getQuestion().getId());");
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(),answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -92,7 +92,7 @@ public class AnswerController {
         Answer answer = answerService.getAnswer(id);
         SiteUser siteUser = userService.getUser(principal.getName());
         answerService.vote(answer, siteUser);
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(),answer.getId());
     }
 
 }
