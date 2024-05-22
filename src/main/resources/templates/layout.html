@@ -8,6 +8,9 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <!--markdown editor-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
     <title>Hello sbb!</title>
 </head>
@@ -16,5 +19,25 @@
 <th:block layout:fragment="content"></th:block>
 <script th:src="@{/bootstrap.min.js}"></script>
 <th:block layout:fragment="script"></th:block>
+
+<!-- Initialize Markdown Editors when Document is Fully Loaded -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // IDs of the textareas where the Markdown editor will be applied
+        var editorIds = ['markdownEditorQuestion', 'markdownEditorAnswer', 'markdownEditorAnswerEnabled'];
+
+        // Initialize SimpleMDE on each textarea with sanitize set to false
+        editorIds.forEach(function(id) {
+            var element = document.getElementById(id);
+            if (element) {
+                new SimpleMDE({
+                    element: element,
+                    spellChecker: false,
+                    sanitize: false // XSS attacks should be considered
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>
